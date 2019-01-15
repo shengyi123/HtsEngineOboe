@@ -32,7 +32,7 @@ public:
 
     void setSweep(double frequencyLow, double frequencyHigh, double seconds);
 
-    void render(int16_t *buffer, int32_t channelStride, int32_t numFrames);
+    static void render(int16_t *buffer, int32_t channelStride, int32_t numFrames);
 
     void render(float *buffer, int32_t channelStride, int32_t numFrames);
 

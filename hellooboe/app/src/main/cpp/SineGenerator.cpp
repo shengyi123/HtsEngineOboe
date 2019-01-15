@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+#include <logging_macros.h>
 #include "SineGenerator.h"
 
 
@@ -57,11 +58,13 @@ void SineGenerator::render(int16_t *buffer, int32_t channelStride, int32_t numFr
         advancePhase();
 
     }*/
+    LOGE("SineGenerator::render(int16_t)");
     int sampleIndex = 0;
     int i;
     extern short *HTS_wavebuffer ;
     extern int32_t buffersize;
     for (i = 0; i < numFrames && (offset+i) < buffersize; i++) {
+        LOGE("HTS_wavebuffer");
         buffer[sampleIndex] = HTS_wavebuffer[ offset+i ];
         sampleIndex += channelStride;
     }

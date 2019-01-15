@@ -184,7 +184,8 @@ PlayAudioEngine::onAudioReady(oboe::AudioStream *audioStream, void *audioData, i
     int32_t channelCount = audioStream->getChannelCount();
 
     // If the tone is on we need to use our synthesizer to render the audio data for the sine waves
-   /* if (audioStream->getFormat() == oboe::AudioFormat::Float) {
+  /*  if (audioStream->getFormat() != oboe::AudioFormat::Float) {    20190115 '!' shengyi 原本是==
+      //  LOGE("FLOAT");
         if (mIsToneOn) {
             for (int i = 0; i < channelCount; ++i) {
                 mOscillators[i].render(static_cast<float *>(audioData) + i, channelCount, numFrames);
@@ -194,18 +195,23 @@ PlayAudioEngine::onAudioReady(oboe::AudioStream *audioStream, void *audioData, i
                    sizeof(float) * channelCount * numFrames);
         }
     } else {
+        LOGE("INT16_T");
         if (mIsToneOn) {
             for (int i = 0; i < channelCount; ++i) {
+                LOGE("mIsToneOn");
                 mOscillators[i].render(static_cast<int16_t *>(audioData) + i, channelCount, numFrames);
             }
         } else {
+            LOGE("mIsToneOff");
             memset(static_cast<uint8_t *>(audioData), 0,
                    sizeof(int16_t) * channelCount * numFrames);
         }
     }*/
-    for (int i = 0; i < channelCount; ++i) {   /*20190113*/
-        mOscillators[i].render(static_cast<int16_t *>(audioData) + i, channelCount, numFrames);
-    }
+    SineGenerator::render(static_cast<int16_t *>(audioData), channelCount, numFrames);
+
+    // for (int i = 0; i < channelCount; ++i) {   /*20190113*/
+    //    mOscillators[i].render(static_cast<int16_t *>(audioData) + i, channelCount, numFrames);
+    //}
 
     if (mIsLatencyDetectionSupported) {
         calculateCurrentOutputLatencyMillis(audioStream, &mCurrentOutputLatencyMillis);
