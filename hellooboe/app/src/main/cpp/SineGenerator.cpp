@@ -16,6 +16,7 @@
 
 #include <logging_macros.h>
 #include "SineGenerator.h"
+#include "HTS_engine.h"
 
 
 constexpr int kDefaultFrameRate = 48000;
@@ -60,8 +61,8 @@ void SineGenerator::render(int16_t *buffer, int32_t channelStride, int32_t numFr
     }*/
     int sampleIndex = 0;
     int i;
-    extern int16_t *HTS_wavebuffer ;
-    extern int32_t buffersize;
+    // extern int16_t *HTS_wavebuffer ;
+    // extern int32_t buffersize;
     LOGE("channelStride = %d",channelStride);
     LOGE("offset: %d buffersize:%d",offset,buffersize);
     for (i = 0; (i < numFrames) && ((offset+i) < buffersize); i++) {
@@ -81,11 +82,37 @@ void SineGenerator::render(int16_t *buffer, int32_t channelStride, int32_t numFr
 }
 
 void SineGenerator::render(float *buffer, int32_t channelStride, int32_t numFrames) {
-    for (int i = 0, sampleIndex = 0; i < numFrames; i++) {
+   /* for (int i = 0, sampleIndex = 0; i < numFrames; i++) {
         buffer[sampleIndex] = static_cast<float>(sinf(mPhase) * mAmplitude);
         sampleIndex += channelStride;
         advancePhase();
+    }*/
+    /*  int sampleIndex = 0;
+     for (int i = 0; i < numFrames; i++) {
+         buffer[sampleIndex] = static_cast<int16_t>(INT16_MAX * sinf(mPhase) * mAmplitude);
+         sampleIndex += channelStride;
+         advancePhase();
+
+     }*/
+    int sampleIndex = 0;
+    int i;
+    // extern int16_t *HTS_wavebuffer ;
+    // extern int32_t buffersize;
+    LOGE("channelStride = %d",channelStride);
+    LOGE("offset: %d buffersize:%d",offset,buffersize);
+    for (i = 0; (i < numFrames) && ((offset+i) < buffersize); i++) {
+
+        buffer[sampleIndex] = ((float) (HTS_wavebuffer[ offset+i ]))/32767.0f ;
+        LOGE(" sampleIndex : %d", sampleIndex);
+        sampleIndex += channelStride;
     }
+    for(;i < numFrames;i++){
+        buffer[sampleIndex] = 0;
+        sampleIndex += channelStride;
+    }
+
+
+    offset += numFrames;
 }
 
 void SineGenerator::advancePhase() {

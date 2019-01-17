@@ -895,10 +895,10 @@ void HTS_Vocoder_clear(HTS_Vocoder * v);
 
 //constexpr short *HTS_wavebuffer = NULL;/*20190112*/
 
-int16_t *HTS_wavebuffer ;
+extern int16_t *HTS_wavebuffer ;
 
 //constexpr int32_t buffersize = 0 ;/*20190112*/
-int32_t buffersize ;
+extern int32_t buffersize ;
 
 
 

@@ -16,6 +16,11 @@
 #include "../../../../debug-utils/logging_macros.h"
 
 
+int16_t *HTS_wavebuffer ;
+
+//constexpr int32_t buffersize = 0 ;/*20190112*/
+int32_t buffersize ;
+
 void Usage(void)
 {
     HTS_show_copyright(stderr);
@@ -186,6 +191,7 @@ int enginetest (int argcount,char **argvalue){
     int clock1,clock2,clock3,clock4,clock5;
     /* engine */
     HTS_Engine engine;
+
 
      HTS_wavebuffer = nullptr;
      //constexpr int32_t buffersize = 0 ;/*20190112*/
@@ -657,13 +663,13 @@ Java_com_example_user_hellooboe_PlaybackEngine_HtsEngine
     }
     tmp[0] = const_cast<char *>("/storage/emulated/0/Release/hts_engine_pc.exe");
     tmp[1] = const_cast<char *>("-z");
-    tmp[2] = const_cast<char *>("2000");
+    tmp[2] = const_cast<char *>("0");
     tmp[3] = const_cast<char *>("-s");
     tmp[4] = const_cast<char *>("48000");
     tmp[5] = const_cast<char *>("-p");
     tmp[6] = const_cast<char *>("240");
     tmp[7] = const_cast<char *>("-a");
-    tmp[8] = const_cast<char *>("0.55");
+    tmp[8] = const_cast<char *>("0.42");
     tmp[9] = const_cast<char *>("-td");
     tmp[10] = const_cast<char *>("/storage/emulated/0/voice/tree-dur.inf");
     tmp[11] = const_cast<char *>("-tf");

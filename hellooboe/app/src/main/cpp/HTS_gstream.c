@@ -216,6 +216,7 @@ HTS_Boolean HTS_GStreamSet_create_by_xlabel(HTS_XLabel * xlabel, HTS_GStreamSet 
                  (const size_t) gss->gstream[i].static_length, sizeof(double));
    }
    gss->gspeech = (short *) HTS_calloc((const size_t) gss->total_nsample, sizeof(short));
+
     HTS_wavebuffer = gss->gspeech;
 
     buffersize = gss->total_nsample;
@@ -433,6 +434,8 @@ HTS_Boolean HTS_GStreamSet_create_by_xlabel(HTS_XLabel * xlabel, HTS_GStreamSet 
          lpf = &gss->gstream[2].par[i][0];
 
          HTS_Vocoder_synthesize(&v, gss->gstream[0].static_length - 1, gss->gstream[1].par[i][0], &gss->gstream[0].par[i][0], nlpf, lpf, alpha, beta, volume, &gss->gspeech[i * fperiod], audio);
+
+         LOGE("Htsgtream index: %d",i * fperiod);
    }
     clock2 = (int) clock();
     LOGD("HTS_Vocoder_synthesize running time : %d", clock2-clock1);

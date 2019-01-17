@@ -24,7 +24,7 @@
 #include "../../../../debug-utils/logging_macros.h"
 
 constexpr int64_t kNanosPerMillisecond = 1000000; // Use int64_t to avoid overflows in calculations
-constexpr int32_t kDefaultChannelCount = 2; // Stereo
+constexpr int32_t kDefaultChannelCount = 1; // Stereo
 
 PlayAudioEngine::PlayAudioEngine() {
 
@@ -184,8 +184,8 @@ PlayAudioEngine::onAudioReady(oboe::AudioStream *audioStream, void *audioData, i
     int32_t channelCount = audioStream->getChannelCount();
 
     // If the tone is on we need to use our synthesizer to render the audio data for the sine waves
-  /*  if (audioStream->getFormat() != oboe::AudioFormat::Float) {    20190115 '!' shengyi 原本是==
-      //  LOGE("FLOAT");
+  if (audioStream->getFormat() == oboe::AudioFormat::Float) {    /*20190115 '!' shengyi 原本是==*/
+        LOGE("FLOAT");
         if (mIsToneOn) {
             for (int i = 0; i < channelCount; ++i) {
                 mOscillators[i].render(static_cast<float *>(audioData) + i, channelCount, numFrames);
@@ -206,9 +206,9 @@ PlayAudioEngine::onAudioReady(oboe::AudioStream *audioStream, void *audioData, i
             memset(static_cast<uint8_t *>(audioData), 0,
                    sizeof(int16_t) * channelCount * numFrames);
         }
-    }*/
+    }
    LOGE("numFrames:%d",numFrames);
-    SineGenerator::render(static_cast<int16_t *>(audioData), channelCount, numFrames);
+   //SineGenerator::render(static_cast<int16_t *>(audioData), channelCount, numFrames);
 
     // for (int i = 0; i < channelCount; ++i) {   /*20190113*/
     //    mOscillators[i].render(static_cast<int16_t *>(audioData) + i, channelCount, numFrames);
