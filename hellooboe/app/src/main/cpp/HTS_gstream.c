@@ -107,10 +107,8 @@ HTS_Boolean HTS_GStreamSet_create(HTS_GStreamSet * gss, HTS_PStreamSet * pss, in
       for (j = 0; j < gss->total_frame; j++)
          gss->gstream[i].par[j] = (double *) HTS_calloc(gss->gstream[i].static_length, sizeof(double));
    }
-   extern short *HTS_wavebuffer;
-   HTS_wavebuffer = gss->gspeech = (short *) HTS_calloc( gss->total_nsample, sizeof(short));
-   extern int32_t buffersize;
-   buffersize = gss->total_nsample;
+
+
    /* copy generated parameter */
    for (i = 0; i < gss->nstream; i++) {
       if (HTS_PStreamSet_is_msd(pss, i)) {      /* for MSD */
@@ -218,6 +216,10 @@ HTS_Boolean HTS_GStreamSet_create_by_xlabel(HTS_XLabel * xlabel, HTS_GStreamSet 
                  (const size_t) gss->gstream[i].static_length, sizeof(double));
    }
    gss->gspeech = (short *) HTS_calloc((const size_t) gss->total_nsample, sizeof(short));
+    HTS_wavebuffer = gss->gspeech;
+
+    buffersize = gss->total_nsample;
+    LOGE("gstream,buffersize:%d",buffersize);
 
    /* copy generated parameter */
    for (i = 0; i < gss->nstream; i++) {

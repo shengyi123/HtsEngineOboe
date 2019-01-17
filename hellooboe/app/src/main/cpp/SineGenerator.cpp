@@ -58,22 +58,26 @@ void SineGenerator::render(int16_t *buffer, int32_t channelStride, int32_t numFr
         advancePhase();
 
     }*/
-    LOGE("SineGenerator::render(int16_t)");
     int sampleIndex = 0;
     int i;
-    extern short *HTS_wavebuffer ;
+    extern int16_t *HTS_wavebuffer ;
     extern int32_t buffersize;
-    for (i = 0; i < numFrames && (offset+i) < buffersize; i++) {
-        LOGE("HTS_wavebuffer");
+    LOGE("channelStride = %d",channelStride);
+    LOGE("offset: %d buffersize:%d",offset,buffersize);
+    for (i = 0; (i < numFrames) && ((offset+i) < buffersize); i++) {
+
         buffer[sampleIndex] = HTS_wavebuffer[ offset+i ];
+        LOGE(" sampleIndex : %d", sampleIndex);
         sampleIndex += channelStride;
     }
-    for(;i<numFrames;i++){
+    for(;i < numFrames;i++){
         buffer[sampleIndex] = 0;
         sampleIndex += channelStride;
     }
 
+
     offset += numFrames;
+
 }
 
 void SineGenerator::render(float *buffer, int32_t channelStride, int32_t numFrames) {

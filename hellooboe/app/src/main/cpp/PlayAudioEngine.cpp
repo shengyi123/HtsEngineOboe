@@ -207,6 +207,7 @@ PlayAudioEngine::onAudioReady(oboe::AudioStream *audioStream, void *audioData, i
                    sizeof(int16_t) * channelCount * numFrames);
         }
     }*/
+   LOGE("numFrames:%d",numFrames);
     SineGenerator::render(static_cast<int16_t *>(audioData), channelCount, numFrames);
 
     // for (int i = 0; i < channelCount; ++i) {   /*20190113*/

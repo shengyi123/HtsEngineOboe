@@ -191,6 +191,8 @@ int enginetest (int argcount,char **argvalue){
      //constexpr int32_t buffersize = 0 ;/*20190112*/
      buffersize = 0 ;
 
+
+
     /*shengyi 2019 0114*/
 
 
@@ -569,6 +571,7 @@ int enginetest (int argcount,char **argvalue){
         LOGD("HTS_Engine_create_pstream_by_xlabel running time : %d",clock4-clock3);
         LOGD("HTS_Engine_create_gstream_by_xlabel running time : %d",clock5-clock4);
     }
+
     /* output */
     if (tracefp != NULL)
         HTS_Engine_save_information(&engine, tracefp);
